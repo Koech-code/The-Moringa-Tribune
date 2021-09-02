@@ -53,10 +53,3 @@ class ArticleTestClass(TestCase):
 
  
 
-    # # Testing  instance
-    # def test_instance(self):
-    #     self.assertTrue(isinstance(self.james,Editor))
-
-
-
-
