@@ -165,6 +165,6 @@ STATICFILES_DIRS = [
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
-os.environ.setdefault("Django_SETTINGS_MODULE", "project.settings")
+os.environ.setdefault("Django_SETTINGS_MODULE", "project.settings.pro")
 
 DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
