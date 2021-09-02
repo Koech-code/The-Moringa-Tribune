@@ -14,11 +14,10 @@ import os
 import django_heroku
 import dj_database_url
 from decouple import config,Csv
-django_heroku.settings(locals(), staticfiles=False)
 
 MODE=config("MODE", default="dev")
 SECRET_KEY = config('SECRET_KEY')
-DEBUG = config('DEBUG', default=False, cast=bool)
+DEBUG = os.environ.get('DEBUG', False)
 
 # development
 if config('MODE')=="dev":
@@ -37,7 +36,7 @@ if config('MODE')=="dev":
 else:
    DATABASES = {
        'default': dj_database_url.config(
-           default=config('DATABASE_URL')
+           default=config('DATA_URL')
        )
    }
 
@@ -57,7 +56,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '#fzypdqkwkny$hgvuo9f7fp^g=rbgw1=kgj6hsaw6=d0md_p-5'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['https://nickytribunes.herokuapp.com/']
 
@@ -152,8 +151,6 @@ USE_L10N = True
 
 USE_TZ = True
 
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
 
@@ -165,6 +162,9 @@ STATICFILES_DIRS = [
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
-os.environ.setdefault("Django_SETTINGS_MODULE", "project.settings")
 
 DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
+
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
+django_heroku.settings(locals())
