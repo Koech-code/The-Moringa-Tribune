@@ -1,7 +1,15 @@
 {% extends 'all-news/base.html'%}
-
+{% load bootstrap5 %}
 {% block content %}
 {{block.super}}
+<style>
+  body{
+    background-image: linear-gradient(160deg, #F3DFC1,  #E5E5E5);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+  }
+</style>
 <div class="container">
 
     <!-- Looping through news   -->
@@ -18,9 +26,11 @@
         <footer class="text-center"> <span style="color: cadetblue;">{{ news_item.tags }}</span> </footer>
       </div>
       <!--Display news Article images  -->
+      {% if news_item.article_image%}
       <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
         <img src="{{news_item.article_image.url}}" class="img-responsive" alt="Image">
       </div>
+      {% endif%}
     </div>
     <div>
           <cite class="text-center"><span style="color: blue;"> {{ news_item.editor }} </span></cite>
@@ -33,4 +43,12 @@
     {% endfor %}
   
   </div>
+  <!-- Looping through news end   -->
+<div class="container-fluid ">
+      <form  action="{%url 'newsToday'%}" method="post" >
+        {%csrf_token%}
+        {% bootstrap_form letterForm layout='inline' %}
+        <input type="submit" value="Subscribe">
+      </form>
+</div>
 {% endblock %}
